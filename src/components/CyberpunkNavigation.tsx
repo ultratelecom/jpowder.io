@@ -104,16 +104,16 @@ export default function CyberpunkNavigation() {
         </motion.div>
       </div>
 
-      {/* Mobile Navigation */}
-      <div className="lg:hidden fixed bottom-4 left-4 right-4 z-20">
+      {/* Mobile Navigation - Fixed bottom with cleaner layout */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-slate-900/98 border-t border-slate-600/60 backdrop-blur-lg">
         <motion.div
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="space-y-3"
+          className="px-4 py-3"
         >
-          {/* Mobile Navigation Grid */}
-          <div className="grid grid-cols-2 gap-2">
+          {/* Mobile Navigation Grid - More compact */}
+          <div className="grid grid-cols-4 gap-2 mb-2">
             {navigationItems.map((item, index) => (
               <motion.a
                 key={item.name}
@@ -121,35 +121,30 @@ export default function CyberpunkNavigation() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
-                className="px-4 py-3 bg-slate-900/95 border border-slate-600/60 backdrop-blur-sm hover:border-cyan-400/80 transition-all duration-300 rounded-lg shadow-lg text-center touch-manipulation"
+                className="px-2 py-2 bg-slate-800/80 border border-slate-600/40 backdrop-blur-sm hover:border-cyan-400/80 transition-all duration-300 rounded-lg text-center touch-manipulation active:scale-95"
                 whileTap={{ scale: 0.95 }}
               >
-                <div className="text-slate-200 font-medium text-sm">
+                <div className="text-slate-200 font-medium text-xs">
                   {item.name}
-                </div>
-                <div className="text-cyan-400 text-xs mt-1 opacity-80">
-                  {item.description}
                 </div>
               </motion.a>
             ))}
           </div>
 
-          {/* Mobile Status indicator */}
+          {/* Mobile Status indicator - Compact */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.5 }}
-            className="bg-slate-900/95 border border-slate-600/60 backdrop-blur-sm rounded-lg p-3 shadow-lg"
+            className="flex items-center justify-center space-x-2 bg-slate-800/60 rounded-lg py-1 px-3"
           >
-            <div className="flex items-center justify-center space-x-2">
-              <motion.div
-                className="w-2 h-2 bg-green-400 rounded-full shadow-lg shadow-green-400/50"
-                animate={{ opacity: [1, 0.4, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              <span className="text-green-400 text-sm font-medium">ONLINE</span>
-              <span className="text-slate-300 text-xs">SECURE</span>
-            </div>
+            <motion.div
+              className="w-2 h-2 bg-green-400 rounded-full shadow-sm shadow-green-400/50"
+              animate={{ opacity: [1, 0.4, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+            <span className="text-green-400 text-xs font-medium">ONLINE</span>
+            <span className="text-slate-300 text-xs">SECURE</span>
           </motion.div>
         </motion.div>
       </div>
