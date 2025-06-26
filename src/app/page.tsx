@@ -1,16 +1,23 @@
-import MatrixRain from '@/components/MatrixRain'
 import CyberpunkProfile from '@/components/CyberpunkProfile'
 import CyberpunkNavigation from '@/components/CyberpunkNavigation'
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black overflow-hidden relative">
-      {/* Matrix Rain Background */}
-      <MatrixRain />
+    <main className="min-h-screen overflow-hidden relative">
+      {/* Full Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: 'url(/JOSH_PIC.jpg)',
+        }}
+      />
       
-      {/* Gradient overlays for depth */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/10 via-transparent to-cyan-900/10 z-5" />
-      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-black/20 to-transparent z-5" />
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-black/40" />
+      
+      {/* Cyberpunk gradient overlays for depth and style */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-transparent to-cyan-900/30" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-black/20 to-transparent" />
       
       {/* Main Content Grid */}
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 h-screen">
