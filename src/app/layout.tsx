@@ -6,8 +6,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Template Website',
-  description: 'A modern website built with Next.js, TypeScript, and Tailwind CSS',
+  title: 'JPOWDER.IO',
+  description: 'Personal website and portfolio of Joshua Powder - Full Stack Developer',
 }
 
 export default function RootLayout({
