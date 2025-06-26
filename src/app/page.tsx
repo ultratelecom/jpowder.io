@@ -20,24 +20,12 @@ export default function Home() {
       <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-black/20 to-transparent" />
       
       {/* Main Content - Full Width */}
-      <div className="relative z-10 h-screen flex items-center">
+      <div className="relative z-10 min-h-screen flex items-center">
         <CyberpunkProfile />
       </div>
 
-      {/* Navigation in Bottom Right Corner */}
+      {/* Responsive Navigation */}
       <CyberpunkNavigation />
-
-      {/* Mobile Navigation */}
-      <div className="lg:hidden fixed bottom-20 left-1/2 transform -translate-x-1/2 z-20">
-        <div className="flex space-x-4">
-          <button className="px-4 py-2 bg-slate-900/90 border border-slate-600/60 text-slate-200 font-medium text-sm backdrop-blur-sm hover:border-cyan-400/80 transition-all rounded-lg shadow-lg">
-            AI TOOLS
-          </button>
-          <button className="px-4 py-2 bg-slate-900/90 border border-slate-600/60 text-slate-200 font-medium text-sm backdrop-blur-sm hover:border-cyan-400/80 transition-all rounded-lg shadow-lg">
-            CONTACT
-          </button>
-        </div>
-      </div>
 
       {/* Cyberpunk scan lines effect */}
       <div className="fixed inset-0 pointer-events-none z-30 opacity-5">
