@@ -15,30 +15,25 @@ export default function Home() {
       {/* Dark overlay for text readability */}
       <div className="absolute inset-0 bg-black/40" />
       
-      {/* Cyberpunk gradient overlays for depth and style */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-transparent to-cyan-900/30" />
+      {/* Clean gradient overlays for depth and style */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/20 via-transparent to-blue-900/20" />
       <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-black/20 to-transparent" />
       
-      {/* Main Content Grid */}
-      <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 h-screen">
-        {/* Left Section - Profile */}
-        <div className="lg:col-span-2 flex items-center">
-          <CyberpunkProfile />
-        </div>
-        
-        {/* Right Section - Navigation */}
-        <div className="hidden lg:block relative">
-          <CyberpunkNavigation />
-        </div>
+      {/* Main Content - Full Width */}
+      <div className="relative z-10 h-screen flex items-center">
+        <CyberpunkProfile />
       </div>
 
+      {/* Navigation in Bottom Right Corner */}
+      <CyberpunkNavigation />
+
       {/* Mobile Navigation */}
-      <div className="lg:hidden fixed bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+      <div className="lg:hidden fixed bottom-20 left-1/2 transform -translate-x-1/2 z-20">
         <div className="flex space-x-4">
-          <button className="px-4 py-2 bg-gray-900/90 border border-cyan-400/50 text-cyan-400 font-mono text-sm backdrop-blur-sm hover:border-cyan-400 transition-all">
+          <button className="px-4 py-2 bg-slate-900/90 border border-slate-600/60 text-slate-200 font-medium text-sm backdrop-blur-sm hover:border-cyan-400/80 transition-all rounded-lg shadow-lg">
             AI TOOLS
           </button>
-          <button className="px-4 py-2 bg-gray-900/90 border border-cyan-400/50 text-cyan-400 font-mono text-sm backdrop-blur-sm hover:border-cyan-400 transition-all">
+          <button className="px-4 py-2 bg-slate-900/90 border border-slate-600/60 text-slate-200 font-medium text-sm backdrop-blur-sm hover:border-cyan-400/80 transition-all rounded-lg shadow-lg">
             CONTACT
           </button>
         </div>
