@@ -26,12 +26,12 @@ export default function CyberpunkProfile() {
         transition={{ duration: 1, ease: "easeOut" }}
         className="max-w-lg"
       >
-        {/* Name - Centered to credential boxes */}
+        {/* Name - Centered to credential boxes with more top padding */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="mb-8 text-center"
+          className="mb-8 text-center pt-16"
         >
           <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-green-400 via-green-300 to-cyan-400 bg-clip-text text-transparent drop-shadow-lg font-mono tracking-widest text-shadow-lg">
             <span className="inline-block animate-pulse">[</span>
@@ -83,5 +83,5 @@ export default function CyberpunkProfile() {
         </motion.div>
       </motion.div>
     </div>
-      )
-  } 
+  )
+} 
