@@ -27,14 +27,14 @@ export default function CyberpunkProfile() {
         initial={{ opacity: 0, x: -100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="max-w-lg"
+        className="max-w-lg h-full flex flex-col justify-center"
       >
         {/* Name - Centered to credential boxes */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="mb-8 text-center"
+          className="mb-6 text-center"
         >
           <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-green-400 via-green-300 to-cyan-400 bg-clip-text text-transparent drop-shadow-lg font-mono tracking-widest text-shadow-lg">
             <span className="inline-block animate-pulse">[</span>
@@ -53,19 +53,19 @@ export default function CyberpunkProfile() {
           </div>
         </motion.div>
 
-        {/* Bubble-style Certifications */}
+        {/* Expanded Credentials Section */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="space-y-4"
+          className="flex-1 flex flex-col"
         >
-          <h2 className="text-lg md:text-xl font-bold text-cyan-400 font-mono bg-slate-900/90 px-4 py-2 rounded-lg backdrop-blur-sm border border-cyan-400/40 shadow-lg text-center">
+          <h2 className="text-lg md:text-xl font-bold text-cyan-400 font-mono bg-slate-900/90 px-4 py-2 rounded-lg backdrop-blur-sm border border-cyan-400/40 shadow-lg text-center mb-4">
             <span className="text-green-400">[</span> CREDENTIALS <span className="text-green-400">]</span>
           </h2>
           
-          {/* Bubble Layout Container */}
-          <div className="flex flex-wrap gap-2 max-h-64 overflow-y-auto scrollbar-thin scrollbar-track-slate-800 scrollbar-thumb-cyan-400">
+          {/* Expanded Bubble Layout Container */}
+          <div className="flex-1 flex flex-wrap content-start gap-3 pb-20">
             {certifications.map((cert, index) => (
               <motion.div
                 key={index}
@@ -76,9 +76,9 @@ export default function CyberpunkProfile() {
                 onMouseLeave={() => setHoveredCert(null)}
                 className="relative"
               >
-                <div className="bg-slate-900/90 border border-slate-600/60 px-3 py-2 rounded-full backdrop-blur-sm hover:border-green-400/80 hover:shadow-lg hover:shadow-green-400/30 transition-all duration-300 hover:bg-slate-800/90 cursor-pointer">
-                  <div className="text-slate-200 text-xs font-medium flex items-center whitespace-nowrap">
-                    <span className="text-green-400 mr-2 text-sm">✓</span>
+                <div className="bg-slate-900/90 border border-slate-600/60 px-4 py-3 rounded-full backdrop-blur-sm hover:border-green-400/80 hover:shadow-lg hover:shadow-green-400/30 transition-all duration-300 hover:bg-slate-800/90 cursor-pointer">
+                  <div className="text-slate-200 text-sm font-medium flex items-center whitespace-nowrap">
+                    <span className="text-green-400 mr-3 text-base">✓</span>
                     {cert.short}
                   </div>
                 </div>
@@ -92,7 +92,7 @@ export default function CyberpunkProfile() {
                     className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 z-50"
                   >
                     <div className="bg-slate-800/95 border border-green-400/60 px-3 py-2 rounded-lg backdrop-blur-sm shadow-xl shadow-green-400/20 max-w-xs">
-                      <div className="text-green-300 text-xs font-medium text-center whitespace-nowrap">
+                      <div className="text-green-300 text-sm font-medium text-center whitespace-nowrap">
                         {cert.full}
                       </div>
                       {/* Arrow */}
@@ -104,33 +104,6 @@ export default function CyberpunkProfile() {
             ))}
           </div>
         </motion.div>
-
-        {/* Enhanced Matrix-style accent effect */}
-        <div className="absolute inset-0 pointer-events-none">
-          <motion.div
-            animate={{
-              opacity: [0.4, 1, 0.4],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-green-400 to-cyan-400 rounded-full shadow-lg shadow-green-400/60"
-          />
-          {/* Additional Matrix effect */}
-          <motion.div
-            animate={{
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              delay: 1
-            }}
-            className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-cyan-400 to-green-400 opacity-30"
-          />
-        </div>
       </motion.div>
     </div>
   )
