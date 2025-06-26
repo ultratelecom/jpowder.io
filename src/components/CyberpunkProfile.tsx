@@ -108,7 +108,7 @@ export default function CyberpunkProfile() {
         initial={{ opacity: 0, x: -100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="flex-1 flex flex-col justify-center w-full max-w-xs sm:max-w-sm md:max-w-2xl lg:max-w-4xl mx-auto lg:mx-0"
+        className="flex-1 flex flex-col justify-start pt-8 sm:pt-12 md:pt-16 lg:pt-20 w-full max-w-xs sm:max-w-sm md:max-w-2xl lg:max-w-4xl mx-auto lg:mx-0"
       >
         {/* Name and Title - With glitch effect */}
         <motion.div
