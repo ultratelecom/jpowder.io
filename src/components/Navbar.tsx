@@ -4,9 +4,8 @@ import { useState, useEffect, useCallback } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Expertise', href: '#skills' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'About', href: '#first-screen' },
+  { label: 'More', href: '#second-screen' },
 ]
 
 export default function Navbar() {

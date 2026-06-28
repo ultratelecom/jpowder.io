@@ -11,16 +11,16 @@ const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&@#%'
 
 const roles = [
   {
-    text: 'Cybersecurity Analyst',
+    text: 'E-Governance Strategist',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 sm:w-10 sm:h-10">
-        <path d="M12 2L3 7v5c0 5.25 3.83 10.15 9 11.25C17.17 22.15 21 17.25 21 12V7l-9-5z" />
-        <path d="M9 12l2 2 4-4" />
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
       </svg>
     ),
   },
   {
-    text: 'AI Full Stack Developer',
+    text: 'AI Full-Stack Architect',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 sm:w-10 sm:h-10">
         <rect x="2" y="4" width="20" height="13" rx="2" />
@@ -33,17 +33,11 @@ const roles = [
     ),
   },
   {
-    text: 'AI Contextual Engineer',
+    text: 'Cybersecurity Advisor',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 sm:w-10 sm:h-10">
-        <path d="M12 2a7 7 0 017 7c0 2.5-1.5 4.5-3 5.5V16H8v-1.5C6.5 13.5 5 11.5 5 9a7 7 0 017-7z" />
-        <path d="M9 21h6" />
-        <path d="M10 18h4" />
-        <path d="M9 9.5c0-.8.6-1.5 1.3-1.5.5 0 .9.3 1.1.7.2-.4.6-.7 1.1-.7.7 0 1.3.7 1.3 1.5 0 1.5-2.4 2.5-2.4 2.5S9 11 9 9.5z" />
-        <circle cx="8" cy="7" r="0.5" fill="currentColor" />
-        <circle cx="16" cy="7" r="0.5" fill="currentColor" />
-        <path d="M7 11c-1.5.5-2.5 1.5-2.5 1.5" />
-        <path d="M17 11c1.5.5 2.5 1.5 2.5 1.5" />
+        <path d="M12 2L3 7v5c0 5.25 3.83 10.15 9 11.25C17.17 22.15 21 17.25 21 12V7l-9-5z" />
+        <path d="M9 12l2 2 4-4" />
       </svg>
     ),
   },
@@ -226,10 +220,9 @@ export default function HeroSection() {
           className="max-w-md text-base leading-relaxed text-ink"
           style={{ opacity: 0 }}
         >
-          An <span className="animated-underline">e-governance strategist</span> and{' '}
-          <span className="animated-underline">systems architect</span> focused on building
-          AI-driven tools that improve how{' '}
-          <span className="animated-underline">governments and businesses</span> operate.
+          I design <span className="animated-underline">secure AI-driven systems</span> that help{' '}
+          <span className="animated-underline">governments and businesses</span> modernize operations,
+          improve decision-making, and deliver services more efficiently.
         </p>
 
         <p className="text-xs text-muted/50 tracking-wider uppercase hidden sm:block">
