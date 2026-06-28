@@ -95,7 +95,7 @@ export default function OnePagePortfolio() {
       <div className="h-screen w-screen overflow-hidden bg-paper px-6 sm:px-10 lg:px-16 flex items-center justify-center relative">
         {/* Sketch Background */}
         <div 
-          className="absolute inset-0 opacity-[0.23] pointer-events-none"
+          className="absolute inset-0 opacity-[0.20] pointer-events-none"
           style={{
             backgroundImage: 'url(/hero-portrait.png)',
             backgroundSize: 'cover',
