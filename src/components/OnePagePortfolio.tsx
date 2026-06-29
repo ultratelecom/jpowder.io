@@ -142,7 +142,7 @@ export default function OnePagePortfolio() {
             </div>
 
             <p
-              className={`mt-8 leading-relaxed text-muted max-w-md transition-opacity duration-700 delay-200 ${
+              className={`mt-8 leading-relaxed text-ink max-w-md transition-opacity duration-700 delay-200 ${
                 showContent ? 'opacity-100' : 'opacity-0'
               }`}
               style={{ fontSize: 'clamp(1.045rem, 2.2vw, 1.21rem)' }}
@@ -196,31 +196,31 @@ export default function OnePagePortfolio() {
           >
             <div className="grid grid-cols-2 gap-6">
               <div className="border border-rule p-5">
-                <p className="uppercase tracking-[0.15em] text-muted mb-2" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Experience</p>
+                <p className="uppercase tracking-[0.15em] text-ink mb-2" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Experience</p>
                 <p className="font-heading font-bold text-ink" style={{ fontSize: 'clamp(1.43rem, 3vw, 2.64rem)' }}>10+ Years</p>
-                <p className="text-muted mt-1" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Infrastructure, Security & Development</p>
+                <p className="text-ink mt-1" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Infrastructure, Security & Development</p>
               </div>
 
               <div className="border border-rule p-5">
-                <p className="uppercase tracking-[0.15em] text-muted mb-2" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Advisory</p>
+                <p className="uppercase tracking-[0.15em] text-ink mb-2" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Advisory</p>
                 <p className="font-heading font-bold text-ink" style={{ fontSize: 'clamp(1.43rem, 3vw, 2.64rem)' }}>300+ Clients</p>
-                <p className="text-muted mt-1" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Connectivity & Tech Solutions</p>
+                <p className="text-ink mt-1" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Connectivity & Tech Solutions</p>
               </div>
 
               <div className="border border-rule p-5">
-                <p className="uppercase tracking-[0.15em] text-muted mb-2" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Education</p>
+                <p className="uppercase tracking-[0.15em] text-ink mb-2" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Education</p>
                 <p className="font-heading font-bold text-ink" style={{ fontSize: 'clamp(0.935rem, 2vw, 1.155rem)' }}>MSc. Cybersecurity</p>
-                <p className="text-muted mt-1" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Information Assurance</p>
+                <p className="text-ink mt-1" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Information Assurance</p>
               </div>
 
               <div className="border border-rule p-5">
-                <p className="uppercase tracking-[0.15em] text-muted mb-2" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Certifications</p>
+                <p className="uppercase tracking-[0.15em] text-ink mb-2" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Certifications</p>
                 <p className="font-heading font-bold text-ink" style={{ fontSize: 'clamp(0.935rem, 2vw, 1.155rem)' }}>CompTIA Stack</p>
-                <p className="text-muted mt-1" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>A+, Net+, Sec+, CySA+, PenTest+, Proj+</p>
+                <p className="text-ink mt-1" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>A+, Net+, Sec+, CySA+, PenTest+, Proj+</p>
               </div>
 
               <div className="col-span-2 border border-rule p-5">
-                <p className="uppercase tracking-[0.15em] text-muted mb-3" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Focus Areas</p>
+                <p className="uppercase tracking-[0.15em] text-ink mb-3" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>Focus Areas</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-ink" style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}>
                   <div>• E-Governance Platforms</div>
                   <div>• AI Systems Architecture</div>
@@ -251,7 +251,7 @@ export default function OnePagePortfolio() {
           <div className="max-w-[1200px] mx-auto">
             <button
               onClick={() => setShowAbout(false)}
-              className="mb-8 flex items-center gap-2 text-muted hover:text-ink transition-colors"
+              className="mb-8 flex items-center gap-2 text-ink hover:text-ink transition-colors"
               style={{ fontSize: 'clamp(0.715rem, 1.5vw, 0.88rem)' }}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -287,7 +287,7 @@ export default function OnePagePortfolio() {
                 {stats.map((stat) => (
                   <div key={stat.number} className="border-l-2 border-ink/20 pl-4">
                     <p className="font-heading font-bold text-ink mb-1" style={{ fontSize: 'clamp(1.21rem, 2.5vw, 1.43rem)' }}>{stat.number}</p>
-                    <p className="leading-relaxed text-muted" style={{ fontSize: 'clamp(0.825rem, 1.7vw, 0.99rem)' }}>{stat.label}</p>
+                    <p className="leading-relaxed text-ink" style={{ fontSize: 'clamp(0.825rem, 1.7vw, 0.99rem)' }}>{stat.label}</p>
                   </div>
                 ))}
               </div>
