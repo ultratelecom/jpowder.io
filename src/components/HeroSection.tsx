@@ -1,233 +1,176 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
-import gsap from 'gsap'
+import { useEffect, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
+import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import ScrambleText from '@/components/ScrambleText'
 
-gsap.registerPlugin(ScrollTrigger)
+const ROLES = ['E-Governance Strategist', 'AI Full-Stack Architect', 'Cybersecurity Advisor']
 
-const NAME_WORDS = ['Joshua', 'Powder']
-const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&@#%'
-
-const roles = [
-  {
-    text: 'E-Governance Strategist',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 sm:w-10 sm:h-10">
-        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-        <polyline points="9 22 9 12 15 12 15 22" />
-      </svg>
-    ),
-  },
-  {
-    text: 'AI Full-Stack Architect',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 sm:w-10 sm:h-10">
-        <rect x="2" y="4" width="20" height="13" rx="2" />
-        <path d="M7 20h10" />
-        <path d="M12 17v3" />
-        <path d="M8 10l-2 1.5L8 13" />
-        <path d="M16 10l2 1.5L16 13" />
-        <path d="M13 8l-2 7" />
-      </svg>
-    ),
-  },
-  {
-    text: 'Cybersecurity Advisor',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 sm:w-10 sm:h-10">
-        <path d="M12 2L3 7v5c0 5.25 3.83 10.15 9 11.25C17.17 22.15 21 17.25 21 12V7l-9-5z" />
-        <path d="M9 12l2 2 4-4" />
-      </svg>
-    ),
-  },
-]
-
+/**
+ * Scene 1: the hero. The name scrambles in over two colossal Syne lines while
+ * the sketch portrait draws itself into the frame. The entrance only begins
+ * once the preloader fires 'jp:loaded', so the reveal is never hidden behind
+ * the curtain.
+ */
 export default function HeroSection() {
-  const nameRef = useRef<HTMLHeadingElement>(null)
-  const rolesRef = useRef<HTMLDivElement>(null)
-  const blurbRef = useRef<HTMLParagraphElement>(null)
+  const [loaded, setLoaded] = useState(false)
+  const rootRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    if (!nameRef.current) return
-
-    const charEls = nameRef.current.querySelectorAll<HTMLSpanElement>('[data-char]')
-    const tl = gsap.timeline({ delay: 0.2 })
-
-    charEls.forEach((el) => {
-      el.textContent = SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)]
-    })
-
-    gsap.set(charEls, { opacity: 0 })
-
-    let lastCharEnd = 0
-
-    charEls.forEach((el, i) => {
-      const correct = el.dataset.char || ''
-      const charDelay = i * 0.04
-
-      tl.to(el, { opacity: 1, duration: 0.01 }, charDelay)
-
-      const scrambleCount = 5
-      const frameGap = 0.05
-      for (let f = 0; f < scrambleCount; f++) {
-        tl.call(
-          () => {
-            el.textContent =
-              SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)]
-          },
-          [],
-          charDelay + 0.01 + f * frameGap
-        )
-      }
-
-      const settleTime = charDelay + 0.01 + scrambleCount * frameGap
-      tl.call(() => { el.textContent = correct }, [], settleTime)
-      lastCharEnd = Math.max(lastCharEnd, settleTime)
-    })
-
-    // Roles clip-path wipe + badge pop-in
-    if (rolesRef.current) {
-      const roleEls = rolesRef.current.querySelectorAll<HTMLElement>('[data-role]')
-      const badgeEls = rolesRef.current.querySelectorAll<HTMLElement>('[data-badge]')
-
-      gsap.set(roleEls, { clipPath: 'inset(0 100% 0 0)' })
-      gsap.set(badgeEls, { scale: 0, opacity: 0 })
-
-      roleEls.forEach((role, i) => {
-        const roleStart = lastCharEnd + 0.1 + i * 0.25
-        tl.to(role, {
-          clipPath: 'inset(0 0% 0 0)',
-          duration: 0.7,
-          ease: 'power3.inOut',
-        }, roleStart)
-
-        if (badgeEls[i]) {
-          tl.to(badgeEls[i], {
-            scale: 1,
-            opacity: 1,
-            duration: 0.4,
-            ease: 'back.out(2)',
-          }, roleStart + 0.4)
-        }
-      })
+    const onLoaded = () => setLoaded(true)
+    // If the preloader already finished (e.g. reduced-motion), start immediately.
+    if (typeof window !== 'undefined' && (window as unknown as { __jpLoaded?: boolean }).__jpLoaded) {
+      setLoaded(true)
     }
-
-    // Blurb fade + underline reveal
-    if (blurbRef.current) {
-      gsap.set(blurbRef.current, { opacity: 0, y: 16 })
-      tl.to(
-        blurbRef.current,
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
-        '-=0.3'
-      )
-
-      const underlines = blurbRef.current.querySelectorAll('.animated-underline')
-      tl.call(() => {
-        underlines.forEach((el) => el.classList.add('is-visible'))
-      }, [], '+=0.2')
-    }
-
-    // Scroll morph: hero name → navbar name
-    let morphTl: gsap.core.Timeline | undefined
-    const navName = document.getElementById('nav-name')
-
-    if (navName && nameRef.current) {
-      gsap.set(navName, { opacity: 0 })
-
-      morphTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: nameRef.current,
-          start: 'top 15%',
-          end: 'top -5%',
-          scrub: 0.3,
-        },
-      })
-
-      morphTl.to(
-        nameRef.current,
-        { opacity: 0, scale: 0.92, y: -20, ease: 'none' },
-        0
-      )
-      morphTl.to(navName, { opacity: 1, ease: 'none' }, 0)
-    }
-
-    return () => {
-      tl.kill()
-      morphTl?.scrollTrigger?.kill()
-      morphTl?.kill()
-    }
+    window.addEventListener('jp:loaded', onLoaded)
+    return () => window.removeEventListener('jp:loaded', onLoaded)
   }, [])
 
-  return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex flex-col justify-end px-6 sm:px-10 lg:px-16 pb-16 pt-32"
-    >
-      <div className="relative z-10 max-w-[1200px] w-full">
-        <h1
-          ref={nameRef}
-          className="font-heading font-black uppercase tracking-tight text-ink leading-none"
-          style={{
-            fontSize: 'clamp(3rem, 8vw, 8rem)',
-            transformOrigin: 'top left',
-          }}
-        >
-          {NAME_WORDS.map((word, wi) => (
-            <span key={wi} className="inline-block whitespace-nowrap">
-              {word.split('').map((char, ci) => (
-                <span
-                  key={ci}
-                  data-char={char}
-                  className="inline-block"
-                  style={{ opacity: 0 }}
-                >
-                  {char}
-                </span>
-              ))}
-              {wi < NAME_WORDS.length - 1 && (
-                <span className="inline-block" style={{ width: '0.3em' }} />
-              )}
-            </span>
-          ))}
-        </h1>
+  // Scroll-linked hand-off: as the hero scrolls away, its giant name recedes
+  // and the navbar brand fades in — the name "moves" from hero to nav.
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const navName = document.getElementById('nav-name')
+    const heroName = rootRef.current?.querySelector('#hero-name')
+    if (reduced || !navName || !heroName || !rootRef.current) {
+      if (navName) navName.style.opacity = '1'
+      return
+    }
+    gsap.registerPlugin(ScrollTrigger)
+    const ctx = gsap.context(() => {
+      gsap.to(navName, {
+        opacity: 1,
+        ease: 'none',
+        scrollTrigger: { trigger: rootRef.current, start: 'top top', end: '25% top', scrub: true },
+      })
+      gsap.to(heroName, {
+        opacity: 0,
+        yPercent: -18,
+        ease: 'none',
+        scrollTrigger: { trigger: rootRef.current, start: 'top top', end: '35% top', scrub: true },
+      })
+    }, rootRef)
+    return () => ctx.revert()
+  }, [loaded])
 
-        <div
-          ref={rolesRef}
-          className="mt-10 sm:mt-14 flex flex-col gap-3 font-heading font-semibold uppercase tracking-wide text-ink"
-          style={{ fontSize: 'clamp(1.5rem, 4vw, 3rem)' }}
-        >
-          {roles.map((role, i) => (
-            <div key={i} className="flex items-center gap-3">
-              <span data-role className="block">
-                {role.text}
-              </span>
-              <span
-                data-badge
-                className="text-ink/70 flex-shrink-0"
-                style={{ opacity: 0, transform: 'scale(0)' }}
-              >
-                {role.icon}
-              </span>
-            </div>
-          ))}
-        </div>
+  const stagger = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.12, delayChildren: 0.9 } },
+  }
+  const rise = {
+    hidden: { opacity: 0, y: 28 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.4, 0.25, 1] as const } },
+  }
+
+  return (
+    <section id="hero" ref={rootRef} className="relative flex min-h-screen items-center overflow-hidden">
+      {/* Sketch portrait — draws itself, then drifts forever */}
+      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46vw] select-none md:block">
+        {loaded && (
+          <div className="sketch-reveal absolute inset-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/hero-portrait.png"
+              alt=""
+              className="ken-burns h-full w-full object-cover object-center opacity-[0.32] mix-blend-multiply [mask-image:linear-gradient(to_left,black_55%,transparent_98%)]"
+            />
+          </div>
+        )}
       </div>
 
-      <div className="relative z-10 mt-auto pt-16 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 max-w-[1200px] w-full">
-        <p
-          ref={blurbRef}
-          className="max-w-md text-base leading-relaxed text-ink"
-          style={{ opacity: 0 }}
-        >
-          I design <span className="animated-underline">secure AI-driven systems</span> that help{' '}
-          <span className="animated-underline">governments and businesses</span> modernize operations,
-          improve decision-making, and deliver services more efficiently.
-        </p>
+      {/* Mobile-only parallax sketch — layered depth behind the content */}
+      <div className="pointer-events-none absolute inset-0 select-none md:hidden">
+        {loaded && (
+          <img
+            src="/hero-portrait.png"
+            alt=""
+            data-parallax="0.28"
+            className="absolute -right-[12%] top-[6%] h-[74%] object-cover object-center opacity-[0.18] mix-blend-multiply [mask-image:linear-gradient(to_bottom,black_60%,transparent_98%)]"
+          />
+        )}
+      </div>
 
-        <p className="text-xs text-muted/50 tracking-wider uppercase hidden sm:block">
-          Scroll to explore
-        </p>
+      <motion.div
+        variants={stagger}
+        initial="hidden"
+        animate={loaded ? 'show' : 'hidden'}
+        className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pt-24 sm:px-10 lg:px-16"
+      >
+        <motion.p
+          variants={rise}
+          className="mb-6 flex items-center gap-3 font-body text-xs font-semibold uppercase tracking-[0.3em] text-muted"
+        >
+          <span className="inline-block h-2 w-2 rounded-full bg-accent" />
+          Portfolio — Vol. 01
+        </motion.p>
+
+        <h1 id="hero-name" className="font-heading font-extrabold uppercase leading-[0.92] tracking-tight">
+          <span className="block text-[clamp(3.6rem,17vw,8.5rem)]">
+            {loaded && <ScrambleText text="Joshua" delay={100} />}
+          </span>
+          <span className="block text-[clamp(3.6rem,17vw,8.5rem)]">
+            {loaded && <ScrambleText text="Powder" delay={650} />}
+          </span>
+        </h1>
+
+        <motion.div variants={rise} className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2">
+          {ROLES.map((role, i) => (
+            <span key={role} className="flex items-center gap-3">
+              <span className="font-body text-[clamp(0.7rem,1.4vw,0.9rem)] font-semibold uppercase tracking-[0.22em] text-ink/80">
+                {role}
+              </span>
+              {i < ROLES.length - 1 && <span className="h-1 w-1 rounded-full bg-accent" />}
+            </span>
+          ))}
+        </motion.div>
+
+        <motion.p variants={rise} className="mt-8 max-w-xl text-[clamp(1rem,1.6vw,1.2rem)] leading-relaxed text-ink/75">
+          I design <span className="font-semibold text-ink">secure AI-driven systems</span> that help{' '}
+          <span className="font-semibold text-ink">governments and businesses</span> modernize operations,
+          improve decision-making, and deliver services more efficiently.
+        </motion.p>
+
+        <motion.div variants={rise} className="mt-12 flex items-center gap-6">
+          <a
+            href="#contact"
+            data-cursor="hover"
+            className="group relative inline-flex items-center gap-3 overflow-hidden border-2 border-ink px-8 py-4 font-body text-xs font-bold uppercase tracking-[0.25em] transition-colors duration-300 hover:text-paper"
+          >
+            <span className="absolute inset-0 -z-0 translate-y-full bg-ink transition-transform duration-300 ease-out group-hover:translate-y-0" />
+            <span className="relative z-10">Contact</span>
+            <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a>
+          <a
+            href="#manifesto"
+            data-cursor="hover"
+            className="font-body text-xs font-semibold uppercase tracking-[0.25em] text-ink/60 underline decoration-accent decoration-2 underline-offset-8 transition-colors hover:text-ink"
+          >
+            Read the manifesto
+          </a>
+        </motion.div>
+      </motion.div>
+
+      {/* Scroll hint */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={loaded ? { opacity: 1 } : {}}
+        transition={{ delay: 2.2, duration: 0.8 }}
+        className="absolute bottom-8 left-6 z-10 flex flex-col items-center gap-3 sm:left-10 lg:left-16"
+      >
+        <span className="font-body text-[10px] font-semibold uppercase tracking-[0.35em] text-muted [writing-mode:vertical-lr]">
+          Scroll
+        </span>
+        <span className="scroll-line" />
+      </motion.div>
+
+      {/* Frame corner marks — architectural drafting detail */}
+      <div aria-hidden className="pointer-events-none absolute inset-4 z-10 hidden md:block">
+        <span className="absolute left-0 top-0 h-5 w-5 border-l border-t border-ink/25" />
+        <span className="absolute right-0 top-0 h-5 w-5 border-r border-t border-ink/25" />
+        <span className="absolute bottom-0 left-0 h-5 w-5 border-b border-l border-ink/25" />
+        <span className="absolute bottom-0 right-0 h-5 w-5 border-b border-r border-ink/25" />
       </div>
     </section>
   )

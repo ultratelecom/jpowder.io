@@ -17,6 +17,7 @@ const config: Config = {
         paper: '#fafafa',
         muted: '#6b7280',
         rule: '#e5e5e5',
+        accent: '#FF4D00',
       },
       keyframes: {
         fadeInUp: {

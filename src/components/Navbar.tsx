@@ -1,91 +1,102 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-const navLinks = [
-  { label: 'About', href: '#first-screen' },
-  { label: 'More', href: '#second-screen' },
+const NAV_LINKS = [
+  { label: 'Manifesto', href: '#manifesto' },
+  { label: 'About', href: '#about' },
+  { label: 'Work', href: '#work' },
+  { label: 'Contact', href: '#contact' },
 ]
 
+/**
+ * Fixed site navigation. The brand begins invisible — the hero hands the name
+ * off to it via a scroll-linked morph (wired up in a later scene). Links now
+ * point at real section anchors that the upcoming scenes will render.
+ */
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const handleClick = useCallback((href: string) => {
-    setMobileOpen(false)
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
-  }, [])
-
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-paper border-b border-rule' : 'bg-transparent'
-      }`}
+    <header
+      className={[
+        'fixed inset-x-0 top-0 z-[80] transition-colors duration-300',
+        scrolled ? 'border-b border-rule bg-paper/85 backdrop-blur-md' : 'border-b border-transparent',
+      ].join(' ')}
     >
-      <div className="max-w-[1200px] mx-auto px-6 sm:px-10 lg:px-16">
-        <div className="flex items-center justify-between h-14 md:h-16">
-          <button
-            id="nav-name"
-            onClick={() => handleClick('#hero')}
-            className="text-xs font-heading font-bold uppercase tracking-[0.15em] text-ink"
-            style={{ opacity: 0 }}
-          >
-            Joshua Powder
-          </button>
+      <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-4 sm:px-10 lg:px-16">
+        <a
+          href="#hero"
+          id="nav-name"
+          data-cursor="hover"
+          className="font-heading text-sm font-bold uppercase tracking-[0.2em]"
+          style={{ opacity: 0 }}
+        >
+          Joshua Powder
+        </a>
 
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <button
-                key={link.href}
-                onClick={() => handleClick(link.href)}
-                className="text-xs uppercase tracking-[0.2em] font-medium text-muted hover:text-ink transition-colors duration-200"
+        <ul className="hidden items-center gap-8 md:flex">
+          {NAV_LINKS.map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                data-cursor="hover"
+                className="group relative font-body text-xs font-medium uppercase tracking-[0.2em] text-ink/70 transition-colors hover:text-ink"
               >
                 {link.label}
-              </button>
-            ))}
-          </div>
+                <span className="absolute -bottom-1 left-0 h-px w-0 bg-accent transition-all duration-300 group-hover:w-full" />
+              </a>
+            </li>
+          ))}
+        </ul>
 
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden relative w-7 h-7 flex flex-col items-center justify-center gap-1"
-            aria-label="Toggle menu"
-          >
-            <span className={`block w-4 h-px bg-ink transition-all duration-300 origin-center ${mobileOpen ? 'rotate-45 translate-y-[2.5px]' : ''}`} />
-            <span className={`block w-4 h-px bg-ink transition-all duration-300 origin-center ${mobileOpen ? '-rotate-45 -translate-y-[2.5px]' : ''}`} />
-          </button>
-        </div>
-      </div>
+        <button
+          type="button"
+          aria-label="Toggle menu"
+          aria-expanded={open}
+          data-cursor="hover"
+          onClick={() => setOpen((v) => !v)}
+          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
+        >
+          <span className={`h-px w-6 bg-ink transition-transform duration-300 ${open ? 'translate-y-[3.5px] rotate-45' : ''}`} />
+          <span className={`h-px w-6 bg-ink transition-transform duration-300 ${open ? '-translate-y-[3.5px] -rotate-45' : ''}`} />
+        </button>
+      </nav>
 
       <AnimatePresence>
-        {mobileOpen && (
+        {open && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden bg-paper border-b border-rule overflow-hidden"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.25, 0.4, 0.25, 1] }}
+            className="overflow-hidden border-t border-rule bg-paper/95 backdrop-blur-md md:hidden"
           >
-            <div className="px-6 py-4 space-y-3">
-              {navLinks.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => handleClick(link.href)}
-                  className="block w-full text-left text-xs uppercase tracking-[0.2em] font-medium text-muted hover:text-ink transition-colors"
-                >
-                  {link.label}
-                </button>
+            <ul className="space-y-1 px-6 py-4">
+              {NAV_LINKS.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="block py-2 font-heading text-lg font-semibold uppercase tracking-[0.12em]"
+                  >
+                    {link.label}
+                  </a>
+                </li>
               ))}
-            </div>
+            </ul>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </header>
   )
 }
