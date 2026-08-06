@@ -25,7 +25,7 @@ const syne = Syne({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://jpowder.io'),
+  metadataBase: new URL('https://jpowder.com'),
   title: 'Joshua Powder — Cybersecurity Analyst, AI Full Stack Developer & AI Contextual Engineer',
   description:
     'I am Joshua Powder, an e-governance strategist and systems architect focused on building AI-driven tools that improve how governments and businesses operate. Specializing in cybersecurity, full-stack development, and AI contextual engineering.',
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://jpowder.io',
+    url: 'https://jpowder.com',
     title: 'Joshua Powder — Cybersecurity Analyst, AI Full Stack Developer & AI Contextual Engineer',
     description:
       'E-governance strategist and systems architect building AI-driven tools that improve how governments and businesses operate.',
